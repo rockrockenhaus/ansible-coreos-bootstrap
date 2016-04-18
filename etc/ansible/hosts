@@ -1,11 +1,9 @@
-primary.coreos.internal
-
+# [coreos} should be all CoreOS instances
 [coreos]
-primary.coreos.internal
-web01.coreos.internal
-web02.coreos.internal
+public.coreos.test
+web01.coreos.test
+web02.coreos.test
 
-[webservers]
-web01.coreos.internal
-web02.coreos.internal
-
+[coreos:vars]
+ansible_ssh_user=core
+ansible_python_interpreter="PATH=/home/core/bin:$PATH python"

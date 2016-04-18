@@ -1,5 +1,29 @@
-# coreostest
+First, on the developer machine, install Vagrant and VirtualBox:
 
-These are a series of playbooks to get a CoreOS cluster up and operational.
+(assume we're on a Mac)
 
-First, we need to bootstarp ansible on the three CoreOS instanes.  Ansible requires Python.  We will utilize pypy as it's more lightweight than regular python.
+Install brew:
+
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Install VirtualBox:
+
+brew cask install virtualbox
+
+Install Vagrant
+
+brew cask install vagrant
+
+
+
+Once you have installed VirualBox and Vagrant, you need to provision your instances.  
+
+Ansible requires Python, we will use pypy, no need to reinvent wheel (ansible-galaxy install defunctzombie.coreos-bootstrap)
+
+Create an ansible hosts file (etc/ansible/hosts)
+
+Install pypy by running "ansible-galaxy install defunctzombie.coreos-bootstrap"
+
+You must run the playbooks in this order:
+
+
