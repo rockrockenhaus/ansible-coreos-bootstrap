@@ -1,20 +1,27 @@
-#Require latest Vagrant
+# Vagrant 1.7+ automatically inserts a different
+# insecure keypair for each new VM created. The easiest way
+# to use the same keypair for all the machines is to disable
+# this feature and rely on the legacy insecure key.
+# config.ssh.insert_key = false
+#
+# Note:
+# As of Vagrant 1.7.3, it is no longer necessary to disable
+# the keypair creation when using the auto-generated inventory.
 
-Vagrant.require_version ">= 1.7.0"
+N = 3
+(1..N).each do |machine_id|
+  config.vm.define "machine#{machine_id}" do |machine|
+    machine.vm.hostname = "machine#{machine_id}"
+    machine.vm.network "private_network", ip: "192.168.77.#{20+machine_id}"
 
-Vagrant.configure(2) do |config|
-
-#We assume that we have our own private registry for docker.
-
-  config.vm.box = "testing/coreos"
-
-  # Disable the new default behavior introduced in Vagrant 1.7, to
-  # ensure that all Vagrant machines will use the same SSH key pair.
-  # See https://github.com/mitchellh/vagrant/issues/5005
-  config.ssh.insert_key = false
-
-  config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "playbook.yml"
+    # Only execute once the Ansible provisioner,
+    # when all the machines are up and ready.
+    if machine_id == N
+      machine.vm.provision :ansible do |ansible|
+        # Disable default limit to connect to all the machines
+        ansible.limit = "all"
+        ansible.playbook = "playbook.yml"
+      end
+    end
   end
 end

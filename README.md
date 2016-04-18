@@ -14,11 +14,25 @@ Install Vagrant
 
 brew cask install vagrant
 
+You will need to instaall the Ansible control machine with pip (requires python, of course)
+
+Install pip
+
+sudo easy_install pip
+
+Install Ansible required python dependencies:
+
+sudo pip install paramiko PyYAML Jinja2 httplib2 six
+
+You can also run the dev_provision.sh to do all of this for you.
+
+Let's provision our instances, using ansible to provision mult machine:
+
+cd $HOME/vagrant-provision
+
+vagrant up
 
 
-Once you have installed VirualBox and Vagrant, you need to provision your instances.  
-
-Ansible requires Python, we will use pypy, no need to reinvent wheel (ansible-galaxy install defunctzombie.coreos-bootstrap)
 
 Create an ansible hosts file (etc/ansible/hosts)
 
