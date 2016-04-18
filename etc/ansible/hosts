@@ -1,0 +1,11 @@
+primary.coreos.internal
+
+[coreos]
+primary.coreos.internal
+web01.coreos.internal
+web02.coreos.internal
+
+[webservers]
+web01.coreos.internal
+web02.coreos.internal
+
